@@ -1,0 +1,21 @@
+{
+  "name": "dns-over-tls",
+  "version": "0.0.1",
+  "description": "DNS-over-TLS",
+  "main": "index.js",
+  "author": "Sagi Kedmi",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "dns-packet": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^10.9.2",
+    "prettier": "^1.14.2",
+    "tslint-config-prettier": "^1.15.0",
+    "typescript": "^3.0.1"
+  }
+}

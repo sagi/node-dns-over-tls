@@ -76,10 +76,10 @@ export function query (this: any, ...args: any[]) {
           reject('Below DNS minimum packet length (DNS Header is 12 bytes)');
         }
         response = Buffer.from(data);
-        checkDone({ response, packetLength, socket, resolve });
+        exports.checkDone({ response, packetLength, socket, resolve });
       } else {
         response = Buffer.concat([response, data]);
-        checkDone({ response, packetLength, socket, resolve });
+        exports.checkDone({ response, packetLength, socket, resolve });
       }
     });
   })
@@ -122,7 +122,7 @@ export const argsOrder = (args: any[]) => {
     return { host, servername, name, klass, type, port };
   } else {
     throw new Error(
-      'Either an options object, a tuple of host, servername, name or one domain name are valid inputs'
+      'Either an options object, a tuple of host, servername, name or one domain name are valid inputs.'
     );
   }
 };

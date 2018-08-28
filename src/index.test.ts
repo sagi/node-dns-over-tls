@@ -35,6 +35,8 @@ describe('dns-over-tls tests', () => {
     expect(socket.destroy).not.toHaveBeenCalled();
     expect(resolve).not.toHaveBeenCalled();
 
+    socket.destroy.mockClear();
+
     packetLength = response.length - dnstls.TWO_BYTES;
     dnstls.checkDone({ response, packetLength, socket, resolve });
     expect(socket.destroy).toHaveBeenCalled();
@@ -62,6 +64,7 @@ describe('dns-over-tls tests', () => {
       type: dnstls.DEFAULT_TYPE,
       port: dnstls.DEFAULT_PORT,
     });
+
     const host = '9.9.9.9';
     const servername = 'dns.quad9.net';
     expect(dnstls.argsOrder([host, servername, domain])).toEqual({
@@ -72,23 +75,34 @@ describe('dns-over-tls tests', () => {
       type: dnstls.DEFAULT_TYPE,
       port: dnstls.DEFAULT_PORT,
     });
+
     const options = {
       host,
       servername,
       name: domain,
-      type: 'AAAA',
+      port: 1234,
     };
-
     expect(dnstls.argsOrder([options])).toEqual({
       host,
       servername,
       name: domain,
       klass: dnstls.DEFAULT_CLASS,
-      type: 'AAAA',
-      port: dnstls.DEFAULT_PORT,
+      type: 'A',
+      port: 1234,
     });
 
-    expect(() => dnstls.argsOrder(['one', 'two'])).toThrow();
+    const badOptions = {
+      servername,
+      name: domain,
+      type: 'AAAA',
+    };
+    expect(() => dnstls.argsOrder([badOptions])).toThrow(
+      'At least host, servername and name must be set.'
+    );
+
+    expect(() => dnstls.argsOrder(['one', 'two'])).toThrow(
+      'Either an options object, a tuple of host, servername, name or one domain name are valid inputs.'
+    );
   });
 
   test('getDnsQuery', () => {
@@ -112,6 +126,8 @@ describe('dns-over-tls tests', () => {
 
   test('query', async () => {
     const tls = require('tls');
+    const dnsPacket = require('dns-packet');
+
     const domain = 'https://sagi.io';
     const queryPromise1 = dnstls.query(domain);
     expect(tls.connect).toHaveBeenCalledWith({
@@ -122,18 +138,46 @@ describe('dns-over-tls tests', () => {
     tls.socket.emit('secureConnect');
     expect(tls.socket.write).toHaveBeenCalled();
 
-    const tooSmallDnsPacketLength = Buffer.from('0009DEADBEEF', 'hex');
-    tls.socket.emit('data', tooSmallDnsPacketLength);
+    const tooSmallDnsPacket = Buffer.from('0009DEADBEEF', 'hex');
+    dnsPacket.streamDecode.mockClear();
+    tls.socket.emit('data', tooSmallDnsPacket);
+    expect(dnsPacket.streamDecode).not.toHaveBeenCalled();
     await expect(queryPromise1).rejects.toEqual(
       'Below DNS minimum packet length (DNS Header is 12 bytes)'
     );
 
     const queryPromise2 = dnstls.query(domain);
+    tls.socket.write.mockClear();
     tls.socket.emit('secureConnect');
-    tls.socket.write.mockReset();
     expect(tls.socket.write).toHaveBeenCalled();
 
-    tls.socket.emit('data');
+    const oneSegmentDnsPacket = Buffer.from(
+      '00444d1681800001000200000001047361676902696f0000010001c00c000100010000012b0004976501c3c00c000100010000012b0004976541c30000290200000000000000',
+      'hex'
+    );
+    dnsPacket.streamDecode.mockClear();
+    tls.socket.emit('data', oneSegmentDnsPacket);
+    expect(dnsPacket.streamDecode).toHaveBeenCalled();
     await queryPromise2;
+
+    const queryPromise3 = dnstls.query(domain);
+    tls.socket.write.mockClear();
+    tls.socket.emit('secureConnect');
+    expect(tls.socket.write).toHaveBeenCalled();
+
+    const twoSegmentDnsPacketPart1 = Buffer.from(
+      '00444d1681800001000200000001047361676902696f0000010001c00c000100010000012b0004976501c3c00c000100010000012b00',
+      'hex'
+    );
+    const twoSegmentDnsPacketPart2 = Buffer.from(
+      '04976541c30000290200000000000000',
+      'hex'
+    );
+    tls.socket.emit('data', twoSegmentDnsPacketPart1);
+    dnsPacket.streamDecode.mockClear();
+    tls.socket.emit('data', twoSegmentDnsPacketPart2);
+    expect(dnsPacket.streamDecode).toHaveBeenCalled();
+
+    await queryPromise3;
   });
 });

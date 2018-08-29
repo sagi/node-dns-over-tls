@@ -1,9 +1,11 @@
 import * as dnstls from './index';
 
+// XXX: Note that many Wi-Fi hotspots block tcp/853.
+// Hence, the tests mail fail.
 describe('dns-over-tls system tests', () => {
   const domain = 'sagi.io';
-  const host = '9.9.9.9';
-  const servername = 'dns.quad9.net';
+  const host = '1.1.1.1'; //'9.9.9.9';
+  const servername = 'cloudflare-dns.com'; // 'dns.quad9.net';
 
   test('1 arg: domain name', async () => {
     const expected = new Set(['151.101.1.195', '151.101.65.195']);

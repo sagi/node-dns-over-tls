@@ -128,10 +128,12 @@ export const argsOrder = (args: any[]) => {
     );
   }
 };
+/*
 (async () => {
   const r = await query('sagi.io');
   console.log(JSON.stringify(r, null, 2));
 })();
+*/
 
 /*
 (async () => {

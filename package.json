@@ -8,8 +8,10 @@
   "scripts": {
     "start": "node lib/index.js",
     "build": "tsc",
-    "test": "jest",
-    "coverage": "jest --coverage",
+    "test": "jest index.test.ts",
+    "system:test": "jest index.system.test.ts",
+    "coverage": "jest --coverage index.test.ts",
+    "system:coverage": "jest --coverage index.system.test.ts",
     "tslint": "tslint ./src/index.ts"
   },
   "dependencies": {

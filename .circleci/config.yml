@@ -43,10 +43,15 @@ jobs:
           name: "test"
           command: yarn test
 
+      # system:test
+      - run:
+          name: "system:test"
+          command: yarn system:test
+
       # coverage
       - run:
           name: "coverage"
-          command: yarn test --ci --coverage --testResultsProcessor="jest-junit"
+          command: yarn coverage --ci --testResultsProcessor="jest-junit"
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
 

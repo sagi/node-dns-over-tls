@@ -34,7 +34,9 @@
     "typescript": "^3.0.1"
   },
   "husky": {
-    "pre-commit": "yarn build && git add lib/"
+    "hooks": {
+      "pre-commit": "yarn build && git add lib/"
+    }
   },
   "repository": {
     "type": "git",

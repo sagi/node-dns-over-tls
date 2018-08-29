@@ -16,7 +16,7 @@ const dnstls = require('dns-over-tls')
 
 All API usages return a `Promise` that resolves to a `DNS` response object.
 
-####  dnstls(name)
+####  dnstls.query(name)
 ~~~js
 (async () => {
   const dnsResponse  = await dnstls.query('sagi.io')
@@ -27,7 +27,7 @@ Sends a DNS-over-TLS request of `domain name`  `'sagi.io'` to
 [Cloudflare](https://developers.cloudflare.com/1.1.1.1/dns-over-tls/)'s
 `dns-over-tls` server (`host` is `'1.1.1.1'` and `servername` is `'cloudflare-dns.com'`).
 
-####  dnstls(host, servername, name)
+####  dnstls.query(host, servername, name)
 ~~~js
 (async () => {
   const dnsResponse  = await dnstls.query('9.9.9.9', 'dns.quad9.net', 'sagi.io')
@@ -36,7 +36,7 @@ Sends a DNS-over-TLS request of `domain name`  `'sagi.io'` to
 Sends a DNS-over-TLS request of `domain name` `'sagi.io'` to `host` `'9.9.9.9'` with
 `servername` `'dns.quad9.net'`.
 
-####  dnstls({ host, servername, name, klass = 'IN', type = 'A', port = 853 })
+####  dnstls.query({ host, servername, name, klass = 'IN', type = 'A', port = 853 })
 Allows for more advanced `DNS` queries.
 
 ~~~js

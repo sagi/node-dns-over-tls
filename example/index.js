@@ -1,4 +1,5 @@
-const dnstls = require('../lib').default;
+//import dnstls from '../lib';
+const dnstls = require('../lib');
 
 (async () => {
   const options = {
@@ -7,6 +8,6 @@ const dnstls = require('../lib').default;
     servername: 'cloudflare-dns.com',
     type: 'NS',
   };
-  const dnsResponse = await dnstls(options);
+  const dnsResponse = await dnstls.query(options);
   console.log(JSON.stringify(dnsResponse, null, 2));
 })();

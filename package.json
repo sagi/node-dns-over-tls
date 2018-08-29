@@ -1,10 +1,11 @@
 {
   "name": "dns-over-tls",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "dns-over-tls for node",
   "author": "Sagi Kedmi <git@sagi.io> (https://sagi.io)",
   "license": "MIT",
   "private": false,
+  "main": "./lib/index.js",
   "scripts": {
     "start": "node lib/index.js",
     "start:example": "node --no-warnings example/index.js",

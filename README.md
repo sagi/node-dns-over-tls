@@ -14,7 +14,7 @@ We import as follows:
 const dnstls = require('dns-over-tls')
 ~~~
 
-All API usages returns a `Promise` that resolves to a dns `Response` object.
+All API usages returns a `Promise` that resolves to a `DNS` response object.
 
 ####  dnstls(name)
 ~~~js
@@ -23,7 +23,7 @@ All API usages returns a `Promise` that resolves to a dns `Response` object.
 })()
 ~~~
 
-Sends a DNS-over-TLS request of domain `name` to
+Sends a DNS-over-TLS request of `domain name`  `'sagi.io'` to
 [Cloudflare](https://developers.cloudflare.com/1.1.1.1/dns-over-tls/)'s
 `dns-over-tls` server (`host` is `'1.1.1.1'` and `servername` is `'cloudflare-dns.com'`).
 

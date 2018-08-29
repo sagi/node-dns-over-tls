@@ -14,7 +14,7 @@ We import as follows:
 const dnstls = require('dns-over-tls')
 ~~~
 
-All API usages returns a `Promise` that resolves to a `DNS` response object.
+All API usages return a `Promise` that resolves to a `DNS` response object.
 
 ####  dnstls(name)
 ~~~js
@@ -69,7 +69,7 @@ Say we'd like to get the `NS` records of domain `sagi.io`:
   console.log(JSON.stringify(dnsResponse, null, 2));
 ~~~
 
-Code from [`example`](https://github.com/rmrs/random-location/tree/master/example).
+Code from [`example`](https://github.com/sagi/node-dns-over-tls/tree/master/example).
 
 Output:
 ~~~json

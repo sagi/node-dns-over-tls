@@ -14,23 +14,46 @@ We import as follows:
 const dnstls = require('dns-over-tls')
 ~~~
 
+All API usages returns a `Promise` that resolves to a dns `Response` object.
+
 ####  dnstls(name)
+~~~js
+(async () => {
+  const dnsResponse  = await dnstls('sagi.io')
+})()
+~~~
+
 Sends a DNS-over-TLS request of domain `name` to
 [Cloudflare](https://developers.cloudflare.com/1.1.1.1/dns-over-tls/)'s
-`dns-over-tls` server.
-
-Returns a `Promise` with a `Response` object.
+`dns-over-tls` server (`host` is `1.1.1.1` and `servername` is `cloudflare-dns.com`).
 
 ####  dnstls(host, servername, name)
+~~~js
+(async () => {
+  const dnsResponse  = await dnstls('9.9.9.9', 'dns.quad9.net', 'sagi.io')
+})()
+~~~
+Sends a DNS-over-TLS request of `domain name` `sagi.io` to `host` `9.9.9.9` with
+`servername` 'dns.quad9.net'.
+
 ####  dnstls({ host, servername, name, klass = 'IN', type = 'A', port = 853 })
+Allows for more advanced `DNS` queries.
 
-## Usage
+~~~js
+(async () => {
+  const options = {
+    name: 'authors.bind',
+    host: '145.100.185.15',
+    servername: 'dnsovertls.sinodun.com',
+    klass: 'CH',
+    type: 'TXT'
+  };
 
-### 1. Simple domain query
-
-
-The request will default on using [Cloudflare]()'s
-server - i.e. `host = 1.1.1.1` and `servername = cloudflare-dns.com`.
+  const dnsResponse = await dnstls(options)
+})
+~~~
+Sends a DNS-over-TLS request of `domain name` `authors.bind` to `host` `145.100.185.15` with
+`servername` 'dnsovertls.sinodun.com', `class` 'CH' and type 'TXT'.
 
 ## License
 MIT

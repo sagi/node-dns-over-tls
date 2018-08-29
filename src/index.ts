@@ -128,34 +128,5 @@ export const argsOrder = (args: any[]) => {
     );
   }
 };
-/*
-(async () => {
-  const r = await query('sagi.io');
-  console.log(JSON.stringify(r, null, 2));
-})();
-*/
 
-/*
-(async () => {
-  //const r = await query("1.1.1.1", "cloudflare-dns.com", "sagi.io");
-  //console.log(JSON.stringify(r, null, 2));
-  const r2 = await query("sagi.io");
-  console.log(JSON.stringify(r2, null, 2));
-  /*
-  const options = {
-    host: "1.1.1.1",
-    servername: "cloudflare-dns.com",
-    name: "google.com",
-    type: "AAAA"
-  };
-  const t = await query(options);
-  console.log(JSON.stringify(t, null, 2));
-  */
-// Node.js v6
-/*
-  const r = query("1.1.1.1", "cloudflare-dns.com", "sagi.io");
-  r.then(x => {
-    console.log(x);
-  });
-*/
 export default query;

@@ -2,7 +2,7 @@
   "name": "dns-over-tls",
   "version": "0.0.1",
   "description": "dns-over-tls for node.",
-  "author": "Sagi Kedmi (https://sagi.io)",
+  "author": "Sagi Kedmi <git@sagi.io> (https://sagi.io)",
   "license": "MIT",
   "private": false,
   "scripts": {
@@ -20,7 +20,11 @@
     "jest": "^23.5.0",
     "prettier": "^1.14.2",
     "ts-jest": "^23.1.4",
-    "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sagi/node-dns-over-tls.git"
+  },
+  "keywords": ["dns-over-tls", "dns over tls", "dns", "tls", "dnstls", "security", "privacy"]
 }

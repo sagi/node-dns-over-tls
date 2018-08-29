@@ -52,8 +52,8 @@ export const getDnsQuery = ({ type, name, klass, id }: GetDnsQueryParams) => ({
   ],
 });
 
-export function query (this: any, ...args: any[]) {
-  return new Promise((resolve, reject) => {
+export const query = (...args: any[]) =>
+  new Promise((resolve, reject) => {
     const { host, servername, name, klass, type, port } = argsOrder(args);
     let response = new Buffer(0);
     let packetLength = 0;
@@ -63,7 +63,7 @@ export function query (this: any, ...args: any[]) {
 
     const socket = tls.connect({ host, servername, port });
 
-    socket.on('secureConnect', () => socket.write(dnsQueryBuf))
+    socket.on('secureConnect', () => socket.write(dnsQueryBuf));
 
     socket.on('data', (data: Buffer) => {
       if (response.length === 0) {
@@ -82,8 +82,7 @@ export function query (this: any, ...args: any[]) {
         exports.checkDone({ response, packetLength, socket, resolve });
       }
     });
-  })
-}
+  });
 
 export const isObject = (obj: Object) => obj === Object(obj);
 export const isString = (obj: Object) =>

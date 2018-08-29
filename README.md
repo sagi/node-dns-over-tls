@@ -19,7 +19,7 @@ All API usages return a `Promise` that resolves to a `DNS` response object.
 ####  dnstls(name)
 ~~~js
 (async () => {
-  const dnsResponse  = await dnstls('sagi.io')
+  const dnsResponse  = await dnstls.query('sagi.io')
 })()
 ~~~
 
@@ -30,7 +30,7 @@ Sends a DNS-over-TLS request of `domain name`  `'sagi.io'` to
 ####  dnstls(host, servername, name)
 ~~~js
 (async () => {
-  const dnsResponse  = await dnstls('9.9.9.9', 'dns.quad9.net', 'sagi.io')
+  const dnsResponse  = await dnstls.query('9.9.9.9', 'dns.quad9.net', 'sagi.io')
 })()
 ~~~
 Sends a DNS-over-TLS request of `domain name` `'sagi.io'` to `host` `'9.9.9.9'` with
@@ -49,7 +49,7 @@ Allows for more advanced `DNS` queries.
     type: 'TXT'
   };
 
-  const dnsResponse = await dnstls(options)
+  const dnsResponse = await dnstls.query(options)
 })
 ~~~
 Sends a DNS-over-TLS request of `domain name` `'authors.bind'` to `host` `'145.100.185.15'` with
@@ -65,7 +65,7 @@ Say we'd like to get the `NS` records of domain `sagi.io`:
     servername: 'cloudflare-dns.com',
     type: 'NS',
   };
-  const dnsResponse = await dnstls(options);
+  const dnsResponse = await dnstls.query(options);
   console.log(JSON.stringify(dnsResponse, null, 2));
 ~~~
 

@@ -129,4 +129,4 @@ export const argsOrder = (args: any[]) => {
   }
 };
 
-export default query;
+export const dnstls = query;

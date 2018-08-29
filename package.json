@@ -1,15 +1,19 @@
 {
   "name": "dns-over-tls",
   "version": "0.0.1",
-  "description": "dns-over-tls for node.",
+  "description": "dns-over-tls for node",
   "author": "Sagi Kedmi <git@sagi.io> (https://sagi.io)",
   "license": "MIT",
   "private": false,
   "scripts": {
     "start": "node lib/index.js",
     "build": "tsc",
-    "test": "jest",
-    "coverage": "jest --coverage"
+    "test": "jest index.test.ts",
+    "system:test": "jest index.system.test.ts",
+    "coverage": "jest --coverage index.test.ts",
+    "system:coverage": "jest --coverage index.system.test.ts",
+    "tslint": "tslint ./src/index.ts",
+    "prettier:circleci": "prettier --list-different src/**/*.ts"
   },
   "dependencies": {
     "dns-packet": "^5.0.2"
@@ -30,13 +34,5 @@
     "type": "git",
     "url": "https://github.com/sagi/node-dns-over-tls.git"
   },
-  "keywords": [
-    "dns-over-tls",
-    "dns over tls",
-    "dns",
-    "tls",
-    "dnstls",
-    "security",
-    "privacy"
-  ]
+  "keywords": ["dns-over-tls", "dns over tls", "dns", "tls", "dnstls", "security", "privacy"]
 }

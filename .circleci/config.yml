@@ -33,10 +33,30 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # Jest
+      # tslint
       - run:
-          name: "Jest"
-          command: yarn jest --ci --coverage --testResultsProcessor="jest-junit"
+          name: "tslint"
+          command: yarn tslint
+
+      # prettier
+      - run:
+          name: "prettier"
+          command: yarn prettier:circleci
+
+      # test
+      - run:
+          name: "test"
+          command: yarn test
+
+      # system:test
+      - run:
+          name: "system:test"
+          command: yarn system:test
+
+      # coverage
+      - run:
+          name: "coverage"
+          command: yarn coverage --ci --testResultsProcessor="jest-junit"
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
 
@@ -45,7 +65,7 @@ jobs:
       - store_artifacts:
           path: reports/junit
 
-      # Coveralls
-      - run:
-          name: "Coveralls"
-          command: yarn jest --coverage --coverageReporters=text-lcov | yarn coveralls
+      # coveralls
+      #- run:
+      #    name: "coveralls"
+      #    command: yarn jest --coverage --coverageReporters=text-lcov | yarn coveralls

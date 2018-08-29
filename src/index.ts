@@ -87,7 +87,7 @@ export const query = (...args: any[]) =>
     });
   });
 
-export const isObject = (obj: object) => obj === Object(obj);
+export const isObject = (obj: any) => obj === Object(obj);
 export const isString = (obj: object) =>
   Object.prototype.toString.call(obj) === '[object String]';
 

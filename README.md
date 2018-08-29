@@ -55,5 +55,67 @@ Allows for more advanced `DNS` queries.
 Sends a DNS-over-TLS request of `domain name` `'authors.bind'` to `host` `'145.100.185.15'` with
 `servername` `'dnsovertls.sinodun.com'`, `class` `'CH'` and type `'TXT'`.
 
+## Example
+
+Say we'd like to get the `NS` records of domain `sagi.io`:
+~~~js
+  const options = {
+    name: 'sagi.io',
+    host: '1.1.1.1',
+    servername: 'cloudflare-dns.com',
+    type: 'NS',
+  };
+  const dnsResponse = await dnstls(options);
+  console.log(JSON.stringify(dnsResponse, null, 2));
+~~~
+
+Code from [`example`](https://github.com/rmrs/random-location/tree/master/example).
+
+Output:
+~~~json
+{
+  "id": 46597,
+  "type": "response",
+  "flags": 384,
+  "flag_qr": true,
+  "opcode": "QUERY",
+  "flag_aa": false,
+  "flag_tc": false,
+  "flag_rd": true,
+  "flag_ra": true,
+  "flag_z": false,
+  "flag_ad": false,
+  "flag_cd": false,
+  "rcode": "NOERROR",
+  "questions": [
+    {
+      "name": "sagi.io",
+      "type": "NS",
+      "class": "IN"
+    }
+  ],
+  "answers": [
+    {
+      "name": "sagi.io",
+      "type": "NS",
+      "ttl": 10703,
+      "class": "IN",
+      "flush": false,
+      "data": "cass.ns.cloudflare.com"
+    },
+    {
+      "name": "sagi.io",
+      "type": "NS",
+      "ttl": 10703,
+      "class": "IN",
+      "flush": false,
+      "data": "dave.ns.cloudflare.com"
+    }
+  ],
+  "authorities": [],
+  "additionals": []
+}
+~~~
+
 ## License
 MIT

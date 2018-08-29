@@ -2,6 +2,9 @@
   "defaultSeverity": "error",
   "extends": ["tslint:recommended"],
   "jsRules": {},
-  "rules": {},
+  "rules": {
+    "quotemark": [true, "single", "jsx-double"],
+    "trailing-comma": [false]
+  },
   "rulesDirectory": []
 }

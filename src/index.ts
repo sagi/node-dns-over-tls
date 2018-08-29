@@ -1,6 +1,9 @@
-const tls = require('tls');
-const crypto = require('crypto');
-const dnsPacket = require('dns-packet');
+// const tls = require('tls');
+// const crypto = require('crypto');
+// const dnsPacket = require('dns-packet');
+import * as crypto from 'crypto';
+import * as dnsPacket from 'dns-packet';
+import * as tls from 'tls';
 
 export const TWO_BYTES = 2;
 export const DEFAULT_TYPE = 'A';
@@ -10,13 +13,13 @@ export const DEFAULT_CLASS = 'IN';
 export const DEFAULT_SERVERNAME = 'cloudflare-dns.com';
 export const RECURSION_DESIRED = dnsPacket.RECURSION_DESIRED;
 
-export const randomId = () => crypto.randomBytes(TWO_BYTES).readUInt16BE();
+export const randomId = () => crypto.randomBytes(TWO_BYTES).readUInt16BE(0);
 
-interface CheckDoneParams {
+interface ICheckDoneParams {
   response: Buffer;
   packetLength: number;
   socket: NodeJS.WriteStream;
-  resolve: (bug: string) => void;
+  resolve: (responseObj: object) => void;
 }
 
 export const checkDone = ({
@@ -24,7 +27,7 @@ export const checkDone = ({
   packetLength,
   socket,
   resolve,
-}: CheckDoneParams) => {
+}: ICheckDoneParams) => {
   // Why + TWO_BYTES? See comment in query()
   if (response.length === packetLength + TWO_BYTES) {
     socket.destroy();
@@ -32,24 +35,24 @@ export const checkDone = ({
   }
 };
 
-interface GetDnsQueryParams {
+interface IGetDnsQueryParams {
   type: string;
   name: string;
   klass: string;
   id: number;
 }
 
-export const getDnsQuery = ({ type, name, klass, id }: GetDnsQueryParams) => ({
-  type: 'query',
-  id,
+export const getDnsQuery = ({ type, name, klass, id }: IGetDnsQueryParams) => ({
   flags: RECURSION_DESIRED,
+  id,
   questions: [
     {
-      type,
       class: klass,
       name,
+      type,
     },
   ],
+  type: 'query',
 });
 
 export const query = (...args: any[]) =>
@@ -84,8 +87,8 @@ export const query = (...args: any[]) =>
     });
   });
 
-export const isObject = (obj: Object) => obj === Object(obj);
-export const isString = (obj: Object) =>
+export const isObject = (obj: object) => obj === Object(obj);
+export const isString = (obj: object) =>
   Object.prototype.toString.call(obj) === '[object String]';
 
 export const argsOrder = (args: any[]) => {
@@ -125,12 +128,10 @@ export const argsOrder = (args: any[]) => {
     );
   }
 };
-/*
 (async () => {
   const r = await query('sagi.io');
   console.log(JSON.stringify(r, null, 2));
 })();
-*/
 
 /*
 (async () => {

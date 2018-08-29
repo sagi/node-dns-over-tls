@@ -128,5 +128,3 @@ export const argsOrder = (args: any[]) => {
     );
   }
 };
-
-export const dnstls = query;

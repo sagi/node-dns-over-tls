@@ -9,7 +9,8 @@
     "start": "node lib/index.js",
     "build": "tsc",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "tslint": "tslint ./src/index.ts"
   },
   "dependencies": {
     "dns-packet": "^5.0.2"
@@ -30,13 +31,5 @@
     "type": "git",
     "url": "https://github.com/sagi/node-dns-over-tls.git"
   },
-  "keywords": [
-    "dns-over-tls",
-    "dns over tls",
-    "dns",
-    "tls",
-    "dnstls",
-    "security",
-    "privacy"
-  ]
+  "keywords": ["dns-over-tls", "dns over tls", "dns", "tls", "dnstls", "security", "privacy"]
 }

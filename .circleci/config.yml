@@ -36,9 +36,7 @@ jobs:
       # tslint
       - run:
           name: "tslint"
-          command: yarn jest --ci --coverage --testResultsProcessor="jest-junit"
-          environment:
-            JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+          command: yarn tslint
 
       # test
       - run:
@@ -57,7 +55,7 @@ jobs:
       - store_artifacts:
           path: reports/junit
 
-      # Coveralls
+      # coveralls
       #- run:
-      #    name: "Coveralls"
+      #    name: "coveralls"
       #    command: yarn jest --coverage --coverageReporters=text-lcov | yarn coveralls

@@ -33,7 +33,7 @@ describe('dns-over-tls tests', () => {
 
     dnstls.checkDone({ response, packetLength, socket, resolve });
     expect(socket.destroy).not.toHaveBeenCalled();
-    expect(resolve).toHaveBeenCalled();
+    expect(resolve).not.toHaveBeenCalled();
 
     socket.destroy.mockClear();
 

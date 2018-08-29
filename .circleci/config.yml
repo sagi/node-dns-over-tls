@@ -38,6 +38,11 @@ jobs:
           name: "tslint"
           command: yarn tslint
 
+      # prettier
+      - run:
+          name: "prettier"
+          command: yarn prettier:circleci
+
       # test
       - run:
           name: "test"

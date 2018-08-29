@@ -12,7 +12,8 @@
     "system:test": "jest index.system.test.ts",
     "coverage": "jest --coverage index.test.ts",
     "system:coverage": "jest --coverage index.system.test.ts",
-    "tslint": "tslint ./src/index.ts"
+    "tslint": "tslint ./src/index.ts",
+    "prettier:circleci": "prettier --list-different src/**/*.ts"
   },
   "dependencies": {
     "dns-packet": "^5.0.2"

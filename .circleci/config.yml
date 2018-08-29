@@ -41,7 +41,7 @@ jobs:
       # test
       - run:
           name: "test"
-          command: yarn test"
+          command: yarn test
 
       # coverage
       - run:

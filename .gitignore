@@ -1,4 +1,7 @@
 *.swp
+
 node_modules
-yarn-error.log
 coverage
+
+yarn-error.log
+npm-debug.log

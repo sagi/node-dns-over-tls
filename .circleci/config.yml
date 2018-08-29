@@ -46,6 +46,6 @@ jobs:
           path: reports/junit
 
       # Coveralls
-      - run:
-          name: "Coveralls"
-          command: yarn jest --coverage --coverageReporters=text-lcov | yarn coveralls
+      #- run:
+      #    name: "Coveralls"
+      #    command: yarn jest --coverage --coverageReporters=text-lcov | yarn coveralls

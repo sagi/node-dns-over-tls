@@ -33,10 +33,22 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # Jest
+      # tslint
       - run:
-          name: "Jest"
+          name: "tslint"
           command: yarn jest --ci --coverage --testResultsProcessor="jest-junit"
+          environment:
+            JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+
+      # test
+      - run:
+          name: "test"
+          command: yarn test"
+
+      # coverage
+      - run:
+          name: "coverage"
+          command: yarn test --ci --coverage --testResultsProcessor="jest-junit"
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
 

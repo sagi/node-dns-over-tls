@@ -24,6 +24,7 @@
     "@types/jest": "^23.3.1",
     "@types/node": "^10.9.2",
     "coveralls": "^3.0.2",
+    "husky": "^1.0.0-rc.13",
     "jest": "^23.5.0",
     "jest-junit": "^5.1.0",
     "prettier": "^1.14.2",
@@ -31,6 +32,9 @@
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.0.1"
+  },
+  "husky": {
+    "pre-commit": "yarn build && git add lib/"
   },
   "repository": {
     "type": "git",

@@ -9,7 +9,7 @@ export const TWO_BYTES = 2;
 export const DEFAULT_TYPE = 'A';
 export const DEFAULT_PORT = 853;
 export const DEFAULT_HOST = '1.1.1.1';
-export const DEFAULT_CLASS = 'IN';
+export const DEFAULT_CLASS = 'INz';
 export const DEFAULT_SERVERNAME = 'cloudflare-dns.com';
 export const RECURSION_DESIRED = dnsPacket.RECURSION_DESIRED;
 

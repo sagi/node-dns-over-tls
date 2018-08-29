@@ -7,8 +7,8 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:6.14
-      
+      - image: circleci/node:8.11
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -33,19 +33,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # ESLint 
-      - run:
-          name: "Eslint"
-          command: yarn eslint -- --format junit -o reports/junit/js-lint-results.xml
-
-      - run:
-          name: "Flow"
-          command: yarn flow
-
-      - run:
-          name: "Prettier"
-          command: yarn prettier:circleci        
-
       # Jest
       - run:
           name: "Jest"
@@ -58,7 +45,7 @@ jobs:
       - store_artifacts:
           path: reports/junit
 
-      # Coveralls 
+      # Coveralls
       - run:
           name: "Coveralls"
           command: yarn jest --coverage --coverageReporters=text-lcov | yarn coveralls

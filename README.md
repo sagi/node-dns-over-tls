@@ -8,19 +8,37 @@
 [![version](https://img.shields.io/npm/v/dns-over-tls.svg?style=flat-square)](http://npm.im/dns-over-tls)
 
 ## API
-There are 3 ways to use this API.
+
+We import as follows:
+~~~js
+const dnstls = require('dns-over-tls')
+~~~
+
+###  dnstls(name)
+###  dnstls(host, servername, name)
+###  dnstls({ host, servername, name, klass = 'IN', type = 'A', port = 853 })
+
+## Usage
 
 ### 1. Simple domain query
 
 ~~~js
 const dnstls = require('dns-over-tls')
+
+// Async / Await Example
 (async () => {
-  await dnstls('https://sagi.io')
+  const dnsResponse = await dnstls('https://sagi.io')
+  console.log(dnsResponse)
 })()
+
+// Promise Example
+dnstls('https://sagi.io')
+  .then(dnsResponse => console.log(dnsResponse))
+  .catch(e => console.error(e));
 ~~~
 
 The request will default on using [Cloudflare](https://developers.cloudflare.com/1.1.1.1/dns-over-tls/)'s
-server - i.e. `host = 1.1.1.1` and `servername = cloudflare-dns.com`
+server - i.e. `host = 1.1.1.1` and `servername = cloudflare-dns.com`.
 
 ## License
 MIT

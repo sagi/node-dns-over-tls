@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
+  "types": "./lib/types/index.d.js",
   "scripts": {
     "start": "node lib/index.js",
     "start:example": "node --no-warnings example/index.js",

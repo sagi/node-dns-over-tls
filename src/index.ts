@@ -4,6 +4,7 @@
 import * as crypto from 'crypto';
 import * as dnsPacket from 'dns-packet';
 import * as tls from 'tls';
+import * as types from './types'
 
 export const TWO_BYTES = 2;
 export const DEFAULT_TYPE = 'A';
@@ -15,19 +16,13 @@ export const RECURSION_DESIRED = dnsPacket.RECURSION_DESIRED;
 
 export const randomId = () => crypto.randomBytes(TWO_BYTES).readUInt16BE(0);
 
-interface ICheckDoneParams {
-  response: Buffer;
-  packetLength: number;
-  socket: NodeJS.WriteStream;
-  resolve: (responseObj: object) => void;
-}
 
 export const checkDone = ({
   response,
   packetLength,
   socket,
   resolve,
-}: ICheckDoneParams) => {
+}: types.ICheckDoneParams) => {
   // Why + TWO_BYTES? See comment in query()
   if (response.length === packetLength + TWO_BYTES) {
     socket.destroy();
@@ -35,14 +30,8 @@ export const checkDone = ({
   }
 };
 
-interface IGetDnsQueryParams {
-  type: string;
-  name: string;
-  klass: string;
-  id: number;
-}
 
-export const getDnsQuery = ({ type, name, klass, id }: IGetDnsQueryParams) => ({
+export const getDnsQuery = ({ type, name, klass, id }: types.IGetDnsQueryParams) => ({
   flags: RECURSION_DESIRED,
   id,
   questions: [
@@ -55,28 +44,11 @@ export const getDnsQuery = ({ type, name, klass, id }: IGetDnsQueryParams) => ({
   type: 'query',
 });
 
-type Domain = string;
-type Host = string;
-type ServerName = string;
-type Port = number;
-type Class = ['IN', 'CH', 'HS'];
-type Type = ['TXT', 'A', 'AAAA', 'CNAME', 'NS', 'MX', 'PTR', 'HINFO'];
-type Options = {
-  host: Host,
-  servername: ServerName,
-  name: Domain,
-  port?: Port,
-  klass?: Class,
-  type?: Type,
-};
-
-type DomainTuple = [Domain];
-type HostServerNameDomainTuple = [Host, ServerName, Domain];
-type OptionsTuple = [Options];
-type QueryArgs = DomainTuple | HostServerNameDomainTuple | OptionsTuple;
-
-export const query = (args: QueryArgs) =>
-  new Promise((resolve, reject) => {
+export function query(...args:types.DomainTuple): Promise<object>;
+export function query(...args:types.OptionsTuple): Promise<object>;
+export function query(...args:types.HostServerNameDomainTuple): Promise<object>;
+export function query(...args: any[]) {
+  return new Promise((resolve, reject) => {
     const { host, servername, name, klass, type, port } = argsOrder(args);
     let response = new Buffer(0);
     let packetLength = 0;
@@ -106,9 +78,10 @@ export const query = (args: QueryArgs) =>
       }
     });
   });
+}
 
 export const isObject = (obj: any) => obj === Object(obj);
-export const isString = (obj: object) =>
+export const isString = (obj: any) =>
   Object.prototype.toString.call(obj) === '[object String]';
 
 export const argsOrder = (args: any[]) => {

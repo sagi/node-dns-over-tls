@@ -127,7 +127,6 @@ describe('dns-over-tls tests', () => {
   test('query', async () => {
     const tls = require('tls');
     const dnsPacket = require('dns-packet');
-
     const domain = 'https://sagi.io';
     const queryPromise1 = dnstls.query(domain);
     expect(tls.connect).toHaveBeenCalledWith({

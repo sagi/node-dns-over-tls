@@ -55,7 +55,27 @@ export const getDnsQuery = ({ type, name, klass, id }: IGetDnsQueryParams) => ({
   type: 'query',
 });
 
-export const query = (...args: any[]) =>
+type Domain = string;
+type Host = string;
+type ServerName = string;
+type Port = number;
+type Class = ['IN', 'CH', 'HS'];
+type Type = ['TXT', 'A', 'AAAA', 'CNAME', 'NS', 'MX', 'PTR', 'HINFO'];
+type Options = {
+  host: Host,
+  servername: ServerName,
+  name: Domain,
+  port?: Port,
+  klass?: Class,
+  type?: Type,
+};
+
+type DomainTuple = [Domain];
+type HostServerNameDomainTuple = [Host, ServerName, Domain];
+type OptionsTuple = [Options];
+type QueryArgs = DomainTuple | HostServerNameDomainTuple | OptionsTuple;
+
+export const query = (args: QueryArgs) =>
   new Promise((resolve, reject) => {
     const { host, servername, name, klass, type, port } = argsOrder(args);
     let response = new Buffer(0);

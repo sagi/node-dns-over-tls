@@ -15,8 +15,7 @@
     "system:test": "jest index.system.test.ts",
     "coverage": "jest --coverage dnstls.test.ts",
     "system:coverage": "jest --coverage index.system.test.ts",
-    "tslint": "tslint ./src/index.ts",
-    "prettier": "prettier src/**/*.ts",
+    "tslint": "tslint ./src/**/*.ts",
     "prettier:circleci": "prettier --list-different src/**/*.ts"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-export as namespace dnstls
+export as namespace dnstls;
 
 interface ICheckDoneParams {
   response: Buffer;
@@ -34,39 +34,37 @@ type HostServerNameDomainTuple = [Host, ServerName, Domain];
 type OptionsTuple = [IOptions];
 type QueryArgs = DomainTuple | HostServerNameDomainTuple | OptionsTuple;
 
-
-
-export interface IQuestion{
+export interface IQuestion {
   name: string;
   type: string;
   class: string;
 }
 
-export interface IAnswer{
+export interface IAnswer {
   name: string;
   type: string;
   class: string;
-  ttl: number ;
+  ttl: number;
   flush: boolean;
   data: string;
 }
 
 export interface IDnsResponse {
-  "id": number;
-  "type": string;
-  "flags": number;
-  "flag_qr": boolean;
-  "opcode": string;
-  "flag_aa": boolean;
-  "flag_tc": boolean;
-  "flag_rd": boolean;
-  "flag_ra": boolean;
-  "flag_z": boolean;
-  "flag_ad": boolean;
-  "flag_cd": boolean;
-  "rcode": string;
-  "questions": Array<IQuestion>;
-  "answers": Array<IAnswer>;
-  "authorities": Array<string>;
-  "additionals": Array<string>;
+  id: number;
+  type: string;
+  flags: number;
+  flag_qr: boolean;
+  opcode: string;
+  flag_aa: boolean;
+  flag_tc: boolean;
+  flag_rd: boolean;
+  flag_ra: boolean;
+  flag_z: boolean;
+  flag_ad: boolean;
+  flag_cd: boolean;
+  rcode: string;
+  questions: Array<IQuestion>;
+  answers: Array<IAnswer>;
+  authorities: Array<string>;
+  additionals: Array<string>;
 }

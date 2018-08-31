@@ -1,4 +1,8 @@
 *
 !lib/index.js
+!lib/index.d.ts
 !lib/dnstls.js
-README.md
+!lib/dnstls.d.ts
+!package.json
+!README.md
+!LICENSE

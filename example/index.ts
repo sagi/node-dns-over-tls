@@ -1,5 +1,4 @@
-//import dnstls from '../lib';
-const dnstls = require('../lib');
+import * as dnstls from '../lib';
 
 (async () => {
   const options = {
@@ -9,5 +8,13 @@ const dnstls = require('../lib');
     type: 'NS',
   };
   const dnsResponse = await dnstls.query(options);
+  /*
+  const dnsResponse = await dnstls.query(
+    '1.1.1.1',
+    'cloudflare-dns.com',
+    'sagi.io'
+  );
+  */
+
   console.log(JSON.stringify(dnsResponse, null, 2));
 })();

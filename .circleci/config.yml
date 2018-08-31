@@ -41,7 +41,7 @@ jobs:
       # prettier
       - run:
           name: "prettier"
-          command: yarn prettier:circleci
+          command: yarn prettier:check
 
       # test
       - run:

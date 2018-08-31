@@ -1,7 +1,7 @@
 // const tls = require('tls');
 // const crypto = require('crypto');
 // const dnsPacket = require('dns-packet');
-import * as crypto from 'crypto';
+import { randomBytes } from 'crypto';
 import * as dnsPacket from 'dns-packet';
 import * as tls from 'tls';
 import * as types from './types';
@@ -14,7 +14,7 @@ export const DEFAULT_CLASS = 'IN';
 export const DEFAULT_SERVERNAME = 'cloudflare-dns.com';
 export const RECURSION_DESIRED = dnsPacket.RECURSION_DESIRED;
 
-export const randomId = () => crypto.randomBytes(TWO_BYTES).readUInt16BE(0);
+export const randomId = () => randomBytes(TWO_BYTES).readUInt16BE(0);
 
 export const checkDone = ({
   response,

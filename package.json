@@ -1,6 +1,6 @@
 {
   "name": "dns-over-tls",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "dns-over-tls for node",
   "author": "Sagi Kedmi <git@sagi.io> (https://sagi.io)",
   "license": "MIT",

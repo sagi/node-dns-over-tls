@@ -16,7 +16,9 @@
     "coverage": "jest --coverage dnstls.test.ts",
     "system:coverage": "jest --coverage index.system.test.ts",
     "tslint": "tslint ./src/**/*.ts",
-    "prettier:circleci": "prettier --list-different src/**/*.ts"
+    "prettier:base": "prettier",
+    "prettier:check": "yarn run prettier:base --list-different \"src/**/*.{ts,tsx}\"",
+    "prettier:write": "yarn run prettier:base --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "dns-packet": "^5.0.2"
@@ -36,7 +38,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn build && git add lib/"
+      "pre-commit": "yarn prettier:write && yarn build && git add lib/"
     }
   },
   "repository": {

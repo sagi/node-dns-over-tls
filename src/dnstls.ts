@@ -59,15 +59,17 @@ type Domain = string;
 type Host = string;
 type ServerName = string;
 type Port = number;
-type Class = ['IN', 'CH', 'HS'];
-type Type = ['TXT', 'A', 'AAAA', 'CNAME', 'NS', 'MX', 'PTR', 'HINFO'];
+// XXX: Find a way to use Class and Type on IOptions.
+type Class = 'IN' | 'CH' | 'HS';
+type Type = 'TXT' | 'A' | 'AAAA' | 'CNAME' | 'NS' | 'MX' | 'PTR' | 'HINFO';
+
 interface IOptions {
   host: Host;
   servername: ServerName;
   name: Domain;
   port?: Port;
-  klass?: Class;
-  type?: Type;
+  klass?: string;
+  type?: string;
 }
 
 type DomainTuple = [Domain];

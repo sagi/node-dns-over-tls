@@ -34,15 +34,13 @@ declare type Domain = string;
 declare type Host = string;
 declare type ServerName = string;
 declare type Port = number;
-declare type Class = ['IN', 'CH', 'HS'];
-declare type Type = ['TXT', 'A', 'AAAA', 'CNAME', 'NS', 'MX', 'PTR', 'HINFO'];
 interface IOptions {
     host: Host;
     servername: ServerName;
     name: Domain;
     port?: Port;
-    klass?: Class;
-    type?: Type;
+    klass?: string;
+    type?: string;
 }
 interface IQuestion {
     name: string;

@@ -28,7 +28,7 @@ describe('dns-over-tls tests', () => {
     const dnsPacket = require('dns-packet');
     const resolve = jest.fn();
     const socket: any = { destroy: jest.fn() };
-    let response = Buffer.from('dummy');
+    const response = Buffer.from('dummy');
     let packetLength = response.length + 3;
 
     dnstls.checkDone({ response, packetLength, socket, resolve });
@@ -58,42 +58,42 @@ describe('dns-over-tls tests', () => {
     const domain = 'https://sagi.io';
     expect(dnstls.argsOrder([domain])).toEqual({
       host: dnstls.DEFAULT_HOST,
-      servername: dnstls.DEFAULT_SERVERNAME,
-      name: domain,
       klass: dnstls.DEFAULT_CLASS,
-      type: dnstls.DEFAULT_TYPE,
+      name: domain,
       port: dnstls.DEFAULT_PORT,
+      servername: dnstls.DEFAULT_SERVERNAME,
+      type: dnstls.DEFAULT_TYPE,
     });
 
     const host = '9.9.9.9';
     const servername = 'dns.quad9.net';
     expect(dnstls.argsOrder([host, servername, domain])).toEqual({
       host,
-      servername,
-      name: domain,
       klass: dnstls.DEFAULT_CLASS,
-      type: dnstls.DEFAULT_TYPE,
+      name: domain,
       port: dnstls.DEFAULT_PORT,
+      servername,
+      type: dnstls.DEFAULT_TYPE,
     });
 
     const options = {
       host,
-      servername,
       name: domain,
       port: 1234,
+      servername,
     };
     expect(dnstls.argsOrder([options])).toEqual({
       host,
-      servername,
-      name: domain,
       klass: dnstls.DEFAULT_CLASS,
-      type: 'A',
+      name: domain,
       port: 1234,
+      servername,
+      type: 'A',
     });
 
     const badOptions = {
-      servername,
       name: domain,
+      servername,
       type: 'AAAA',
     };
     expect(() => dnstls.argsOrder([badOptions])).toThrow(
@@ -111,16 +111,16 @@ describe('dns-over-tls tests', () => {
     const klass = 'IN';
     const name = 'sagi.io';
     expect(dnstls.getDnsQuery({ id, type, klass, name })).toEqual({
-      type: 'query',
-      id,
       flags: dnstls.RECURSION_DESIRED,
+      id,
       questions: [
         {
-          type,
           class: klass,
           name,
+          type,
         },
       ],
+      type: 'query',
     });
   });
 
@@ -130,8 +130,8 @@ describe('dns-over-tls tests', () => {
     const domain = 'https://sagi.io';
     const queryPromise1 = dnstls.query(domain);
     expect(tls.connect).toHaveBeenCalledWith({
-      port: dnstls.DEFAULT_PORT,
       host: dnstls.DEFAULT_HOST,
+      port: dnstls.DEFAULT_PORT,
       servername: dnstls.DEFAULT_SERVERNAME,
     });
     tls.socket.emit('secureConnect');

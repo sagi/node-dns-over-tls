@@ -3,8 +3,7 @@
 // const dnsPacket = require('dns-packet');
 import { randomBytes } from 'crypto';
 import * as dnsPacket from 'dns-packet';
-import * as tls from 'tls';
-import * as types from './types';
+import { connect } from 'tls';
 
 export const TWO_BYTES = 2;
 export const DEFAULT_TYPE = 'A';
@@ -16,12 +15,19 @@ export const RECURSION_DESIRED = dnsPacket.RECURSION_DESIRED;
 
 export const randomId = () => randomBytes(TWO_BYTES).readUInt16BE(0);
 
+interface ICheckDoneParams {
+  response: Buffer;
+  packetLength: number;
+  socket: NodeJS.WriteStream;
+  resolve: (responseObj: object) => void;
+}
+
 export const checkDone = ({
   response,
   packetLength,
   socket,
   resolve,
-}: types.ICheckDoneParams) => {
+}: ICheckDoneParams) => {
   // Why + TWO_BYTES? See comment in query()
   if (response.length === packetLength + TWO_BYTES) {
     socket.destroy();
@@ -29,12 +35,14 @@ export const checkDone = ({
   }
 };
 
-export const getDnsQuery = ({
-  type,
-  name,
-  klass,
-  id,
-}: types.IGetDnsQueryParams) => ({
+interface IGetDnsQueryParams {
+  type: string;
+  name: string;
+  klass: string;
+  id: number;
+}
+
+export const getDnsQuery = ({ type, name, klass, id }: IGetDnsQueryParams) => ({
   flags: RECURSION_DESIRED,
   id,
   questions: [
@@ -47,10 +55,68 @@ export const getDnsQuery = ({
   type: 'query',
 });
 
-//export function query(name: types.Domain | types.IOptions): any;
-// export function query(options: types.IOptions): any;
-//export function query(host: types.Host, servername: types.ServerName, name: types.Domain): any;
-export function query(...args: any[]) {
+type Domain = string;
+type Host = string;
+type ServerName = string;
+type Port = number;
+type Class = ['IN', 'CH', 'HS'];
+type Type = ['TXT', 'A', 'AAAA', 'CNAME', 'NS', 'MX', 'PTR', 'HINFO'];
+interface IOptions {
+  host: Host;
+  servername: ServerName;
+  name: Domain;
+  port?: Port;
+  klass?: Class;
+  type?: Type;
+}
+
+type DomainTuple = [Domain];
+type HostServerNameDomainTuple = [Host, ServerName, Domain];
+type OptionsTuple = [IOptions];
+type QueryArgs = DomainTuple | HostServerNameDomainTuple | OptionsTuple;
+
+interface IQuestion {
+  name: string;
+  type: string;
+  class: string;
+}
+
+interface IAnswer {
+  name: string;
+  type: string;
+  class: string;
+  ttl: number;
+  flush: boolean;
+  data: string;
+}
+
+interface IDnsResponse {
+  id: number;
+  type: string;
+  flags: number;
+  flag_qr: boolean;
+  opcode: string;
+  flag_aa: boolean;
+  flag_tc: boolean;
+  flag_rd: boolean;
+  flag_ra: boolean;
+  flag_z: boolean;
+  flag_ad: boolean;
+  flag_cd: boolean;
+  rcode: string;
+  questions: IQuestion[];
+  answers: IAnswer[];
+  authorities: string[];
+  additionals: string[];
+}
+
+export function query(arg: Domain | IOptions): Promise<IDnsResponse>;
+export function query(
+  host: Host,
+  servername: ServerName,
+  name: Domain
+): Promise<IDnsResponse>;
+export function query(...args: any[]): Promise<IDnsResponse> {
   return new Promise((resolve, reject) => {
     const { host, servername, name, klass, type, port } = argsOrder(args);
     let response = new Buffer(0);
@@ -59,7 +125,7 @@ export function query(...args: any[]) {
     const dnsQuery = getDnsQuery({ type, name, klass, id });
     const dnsQueryBuf = dnsPacket.streamEncode(dnsQuery);
 
-    const socket = tls.connect({ host, servername, port });
+    const socket = connect({ host, servername, port });
 
     socket.on('secureConnect', () => socket.write(dnsQueryBuf));
 

@@ -4,7 +4,7 @@ import * as dnstls from './dnstls';
 // Hence, the tests mail fail.
 describe('dns-over-tls system tests', () => {
   const domain = 'sagi.io';
-  const host = '1.1.1.1'; //'9.9.9.9';
+  const host = '1.1.1.1'; // '9.9.9.9';
   const servername = 'cloudflare-dns.com'; // 'dns.quad9.net';
 
   test('1 arg: domain name', async () => {

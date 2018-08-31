@@ -6,11 +6,11 @@
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
-  "types": "./lib/types/index.d.js",
+  "types": "./lib/index.d.js",
   "scripts": {
     "start": "node lib/index.js",
-    "start:example": "node example/index.js",
-    "build": "tsc",
+    "start:example": "ts-node example/index.ts",
+    "build": "tsc && tsc -d",
     "test": "jest dnstls.test.ts",
     "system:test": "jest index.system.test.ts",
     "coverage": "jest --coverage dnstls.test.ts",
@@ -32,6 +32,7 @@
     "jest-junit": "^5.1.0",
     "prettier": "^1.14.2",
     "ts-jest": "^23.1.4",
+    "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.0.1"

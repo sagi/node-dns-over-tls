@@ -11,11 +11,12 @@
     "start": "node lib/index.js",
     "start:example": "node --no-warnings example/index.js",
     "build": "tsc",
-    "test": "jest index.test.ts",
+    "test": "jest dnstls.test.ts",
     "system:test": "jest index.system.test.ts",
     "coverage": "jest --coverage index.test.ts",
     "system:coverage": "jest --coverage index.system.test.ts",
     "tslint": "tslint ./src/index.ts",
+    "prettier": "prettier src/**/*.ts",
     "prettier:circleci": "prettier --list-different src/**/*.ts"
   },
   "dependencies": {

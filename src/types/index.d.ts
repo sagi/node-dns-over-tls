@@ -34,6 +34,8 @@ type HostServerNameDomainTuple = [Host, ServerName, Domain];
 type OptionsTuple = [IOptions];
 type QueryArgs = DomainTuple | HostServerNameDomainTuple | OptionsTuple;
 
+
+
 export interface IQuestion{
   name: string;
   type: string;

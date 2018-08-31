@@ -1,4 +1,4 @@
-import * as dnstls from './index';
+import * as dnstls from './dnstls';
 
 jest.mock('tls', () => {
   const Duplex = require('stream').Duplex;

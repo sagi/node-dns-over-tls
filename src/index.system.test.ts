@@ -1,4 +1,4 @@
-import * as dnstls from './index';
+import * as dnstls from './dnstls';
 
 // XXX: Note that many Wi-Fi hotspots block tcp/853.
 // Hence, the tests mail fail.

@@ -86,4 +86,7 @@ export declare const argsOrder: (args: any[]) => {
     type: any;
     port: any;
 };
-export {};
+declare const _default: {
+    query: typeof query;
+};
+export default _default;

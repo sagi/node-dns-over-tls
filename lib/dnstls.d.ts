@@ -76,6 +76,7 @@ interface IDnsResponse {
 }
 export declare function query(arg: Domain | IOptions): Promise<IDnsResponse>;
 export declare function query(host: Host, servername: ServerName, name: Domain): Promise<IDnsResponse>;
+export declare const calculateSPKIPin: (x: any) => string;
 export declare const isObject: (obj: any) => boolean;
 export declare const isString: (obj: any) => boolean;
 export declare const argsOrder: (args: any[]) => {

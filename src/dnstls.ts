@@ -1,7 +1,4 @@
-// const tls = require('tls');
-// const crypto = require('crypto');
-// const dnsPacket = require('dns-packet');
-import { randomBytes } from 'crypto';
+import { createHash, randomBytes } from 'crypto';
 import * as dnsPacket from 'dns-packet';
 import { connect } from 'tls';
 
@@ -123,13 +120,18 @@ export function query(...args: any[]): Promise<IDnsResponse> {
     const { host, servername, name, klass, type, port } = argsOrder(args);
     let response = new Buffer(0);
     let packetLength = 0;
+    let calculatedSPKIPin = '';
     const id = randomId();
     const dnsQuery = getDnsQuery({ type, name, klass, id });
     const dnsQueryBuf = dnsPacket.streamEncode(dnsQuery);
 
     const socket = connect({ host, servername, port });
 
-    socket.on('secureConnect', () => socket.write(dnsQueryBuf));
+    socket.on('secureConnect', () => {
+      calculatedSPKIPin = calculateSPKIPin(socket.getPeerCertificate());
+      console.log(calculatedSPKIPin);
+      socket.write(dnsQueryBuf);
+    });
 
     socket.on('data', (data: Buffer) => {
       if (response.length === 0) {
@@ -150,6 +152,23 @@ export function query(...args: any[]): Promise<IDnsResponse> {
     });
   });
 }
+
+export const calculateSPKIPin = (
+  x: any /*{
+  raw: Buffer;
+  pubkey: Buffer;
+  subject: object;
+  fingerprint: string;
+}*/
+): string => {
+  const { raw, pubkey } = x;
+  console.log(JSON.stringify(x.subject, null, 2));
+  console.log(JSON.stringify(x.issuer, null, 2));
+  const sha256 = createHash('sha256')
+    .update(pubkey)
+    .digest('base64');
+  return sha256;
+};
 
 export const isObject = (obj: any) => obj === Object(obj);
 export const isString = (obj: any) =>

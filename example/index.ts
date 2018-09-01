@@ -1,4 +1,6 @@
-import * as dnstls from '../lib';
+// Make sure both works.
+import dnstls from '../lib';
+//import * as dnstls from '../lib';
 
 (async () => {
   const options = {

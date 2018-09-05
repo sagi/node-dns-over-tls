@@ -7,6 +7,12 @@
 [![MIT License](https://img.shields.io/npm/l/dns-over-tls.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![version](https://img.shields.io/npm/v/dns-over-tls.svg?style=flat-square)](http://npm.im/dns-over-tls)
 
+## Installation
+
+~~~
+$ npm install dns-over-tls
+~~~
+
 ## API
 
 We import as follows:

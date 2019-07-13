@@ -3,6 +3,7 @@
   "version": "0.0.6",
   "description": "dns-over-tls for node",
   "author": "Sagi Kedmi <git@sagi.io> (https://sagi.io)",
+  "homepage": "https://sagi.io",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -21,21 +22,21 @@
     "prettier:write": "yarn run prettier:base --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "dns-packet": "^5.0.2"
+    "dns-packet": "^5.2.1"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.1",
-    "@types/node": "^10.9.2",
-    "coveralls": "^3.0.2",
-    "husky": "^1.0.0-rc.13",
-    "jest": "^23.5.0",
-    "jest-junit": "^5.1.0",
-    "prettier": "^1.14.2",
-    "ts-jest": "^23.1.4",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.0.1"
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.2",
+    "coveralls": "^3.0.5",
+    "husky": "^3.0.0",
+    "jest": "^24.8.0",
+    "jest-junit": "^6.4.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.3"
   },
   "husky": {
     "hooks": {

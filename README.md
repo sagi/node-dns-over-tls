@@ -1,6 +1,6 @@
 # dns-over-tls
 
-[`dns-over-tls`](https://www.npmjs.com/package/dns-over-tls) is a Node.js [DNS-over-TLS](https://sagi.io/2018/09/dns-over-tls---thoughts-and-implementation/) API.
+[`dns-over-tls`](https://www.npmjs.com/package/dns-over-tls) is a Node.js DNS-over-TLS API. Here's a [blog post](https://sagi.io/2018/09/dns-over-tls---thoughts-and-implementation/) that explains how it works.
 
 [![CircleCI](https://circleci.com/gh/sagi/node-dns-over-tls.svg?style=svg)](https://circleci.com/gh/sagi/node-dns-over-tls)
 [![Coverage Status](https://coveralls.io/repos/github/sagi/node-dns-over-tls/badge.svg?branch=master)](https://coveralls.io/github/sagi/node-dns-over-tls?branch=master)

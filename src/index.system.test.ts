@@ -8,13 +8,11 @@ describe('dns-over-tls system tests', () => {
   const servername = 'cloudflare-dns.com'; // 'dns.quad9.net';
 
   test('1 arg: domain name', async () => {
-    const expected = new Set(['151.101.1.195', '151.101.65.195']);
-
     const dnsResponse = await dnstls.query(domain);
     const { answers } = dnsResponse;
     answers.forEach(answer => {
       const { data: ip } = answer;
-      expect(expected.has(ip)).toBe(true);
+      expect(!!ip.length).toBe(true);
     });
     if (!answers) {
       fail();
@@ -22,13 +20,11 @@ describe('dns-over-tls system tests', () => {
   });
 
   test('3 args: host, servername, domain name', async () => {
-    const expected = new Set(['151.101.1.195', '151.101.65.195']);
-
     const dnsResponse = await dnstls.query(host, servername, domain);
     const { answers } = dnsResponse;
     answers.forEach(answer => {
       const { data: ip } = answer;
-      expect(expected.has(ip)).toBe(true);
+      expect(!!ip.length).toBe(true);
     });
     if (!answers) {
       fail();
@@ -36,13 +32,11 @@ describe('dns-over-tls system tests', () => {
   });
 
   test('options object', async () => {
-    const expected = new Set(['151.101.1.195', '151.101.65.195']);
-
     const dnsResponse = await dnstls.query({ host, servername, name: domain });
     const { answers } = dnsResponse;
     answers.forEach(answer => {
       const { data: ip } = answer;
-      expect(expected.has(ip)).toBe(true);
+      expect(!!ip.length).toBe(true);
     });
     if (!answers) {
       fail();

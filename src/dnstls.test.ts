@@ -2,7 +2,7 @@ import * as dnstls from './dnstls';
 
 jest.mock('tls', () => {
   const Duplex = require('stream').Duplex;
-  const socket = new Duplex({ read: size => true });
+  const socket = new Duplex({ read: () => true });
   socket.destroy = jest.fn();
   socket.write = jest.fn();
   const connect = jest.fn(tlsOptions => socket);

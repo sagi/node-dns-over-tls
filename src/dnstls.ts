@@ -128,7 +128,7 @@ export function query(...args: any[]): Promise<IDnsResponse> {
     const dnsQueryBuf = dnsPacket.streamEncode(dnsQuery);
 
     const socket = connect({ host, servername, port });
-
+    socket.on('error',reject)
     socket.on('secureConnect', () => socket.write(dnsQueryBuf));
 
     socket.on('data', (data: Buffer) => {

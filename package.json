@@ -1,6 +1,6 @@
 {
   "name": "dns-over-tls",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "dns-over-tls for node",
   "author": "Sagi Kedmi <git@sagi.io> (https://sagi.io)",
   "homepage": "https://sagi.io",
